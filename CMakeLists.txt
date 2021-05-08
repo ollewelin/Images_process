@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+project(main)
+set(CMAKE_CXX_STANDARD 14)
+set(OpenCV_DIR /home/olle/OpenCV/opencv-master/build)
+find_package(OpenCV REQUIRED)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lm -ldl")
+add_executable(main main.cpp)
+target_link_libraries(main ${TORCH_LIBRARIES} ${OpenCV_LIBS})
+add_executable(flip flip.cpp)
+target_link_libraries(flip ${TORCH_LIBRARIES} ${OpenCV_LIBS})
+
+set_property(TARGET main PROPERTY CXX_STANDARD 14)
