@@ -38,7 +38,7 @@ auto main() -> int
   int train_class = 1;
   int rand_img_indx;
   std::string str1 = "./data/src/";
-  std::string str2 = "./data/src/";
+  std::string str2 = "./data/fliped/";
   std::string str3 = ".jpg";
     std::string train_file;
 
