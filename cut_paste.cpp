@@ -328,19 +328,9 @@ auto main() -> int
     std::string inp_img_str = std::to_string(0);
     std::string background_str = std::to_string(0);
     std::string output_file = std::to_string(0);
-  const int nr_randomize_images = 5;
+  const int nr_randomize_images = 2;
   printf("Randomize input images by factor =%d\n", nr_randomize_images);
 
-  printf("Check order of files\n");
-  for(int i=0;i<nr_of_background;i++){
-      inp_img_str = std::to_string(i+1);
-      background_str = str4 + inp_img_str + str3;
-      std::cout << background_str << std::endl;
-
-      cv::Mat background_src = cv::imread(background_str);
-      cv::imshow("background_src", background_src);
-      cv::waitKey(1);
-  }
 
  printf("Check order of files\n");
   for(int i=0;i<nr_of_files;i++){
@@ -353,6 +343,16 @@ auto main() -> int
      cv::waitKey(1);
   }
 
+  printf("Check order of files\n");
+  for(int i=0;i<nr_of_background;i++){
+      inp_img_str = std::to_string(i+1);
+      background_str = str4 + inp_img_str + str3;
+      std::cout << background_str << std::endl;
+
+      cv::Mat background_src = cv::imread(background_str);
+      cv::imshow("background_src", background_src);
+      cv::waitKey(1);
+  }
 
 
   for(int i=0;i<nr_of_files;i++)
@@ -382,8 +382,11 @@ auto main() -> int
       cout << output_file << endl;
       
       //cv::imwrite("output file images", imgSquarRect);
+   if(i< 100){
       cv::imshow("output file images", imgSquarRect);
-      cv::waitKey(100);
+      cv::waitKey(200);
+
+   }
       cv::imwrite(output_file, imgSquarRect);
     }
 
