@@ -37,8 +37,8 @@ auto main() -> int
   int test_class = 1;
   int train_class = 1;
   int rand_img_indx;
-  std::string str1 = "./data/";
-  std::string str2 = "/";
+  std::string str1 = "./data/src/";
+  std::string str2 = "./data/src/";
   std::string str3 = ".jpg";
     std::string train_file;
 
@@ -46,7 +46,7 @@ auto main() -> int
   DIR *dp;
   int nr_of_files = 0;
   struct dirent *ep;     
-  dp = opendir ("./data/");
+  dp = opendir ("./data/src/");
 
   if (dp != NULL)
   {
@@ -85,7 +85,7 @@ auto main() -> int
     inp_img_str = std::to_string(i+1);
     input_file = str1 + inp_img_str + str3;
     inp_img_str = std::to_string(i+nr_of_files+1);
-    flip_img_str = str1 + inp_img_str + str3;
+    flip_img_str = str2 + inp_img_str + str3;
     printf("input_file = ");
     cout << input_file << endl;
 
@@ -94,12 +94,16 @@ auto main() -> int
    // cv::Mat imgSquarRect = makeSquareImg(img, input_img_size, input_file);
    //cv::flip(src,dst,1);//1 x axis flip
     cv::flip(img,fliped_img,1);//1 x axis flip
+    cv::imwrite(flip_img_str, fliped_img);
+
+    if(i<100){
     cv::imshow("img", img);
     cv::imshow("fliped_img", fliped_img);
+    cv::waitKey(100);
+
+    }
     printf("output_file = ");
     cout << flip_img_str << endl;
-    cv::imwrite(flip_img_str, fliped_img);
-    cv::waitKey(100);
 
   }
 }
