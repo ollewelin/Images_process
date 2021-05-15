@@ -9,5 +9,10 @@ add_executable(main main.cpp)
 target_link_libraries(main ${TORCH_LIBRARIES} ${OpenCV_LIBS})
 add_executable(flip flip.cpp)
 target_link_libraries(flip ${TORCH_LIBRARIES} ${OpenCV_LIBS})
+add_executable(cut_paste cut_paste.cpp)
+target_link_libraries(cut_paste ${TORCH_LIBRARIES} ${OpenCV_LIBS})
+add_executable(cut_out cut_out.cpp)
+target_link_libraries(cut_out ${TORCH_LIBRARIES} ${OpenCV_LIBS})
+
 
 set_property(TARGET main PROPERTY CXX_STANDARD 14)
