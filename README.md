@@ -9,3 +9,7 @@ Images processing Flip, Resize and randomize lights etc
 ## command example
 
 ![](Cut_out_example.png)
+
+![](src_img.jpg)
+
+![](dst_img.jpg)
