@@ -1,5 +1,5 @@
 # Images_process
-Images processing Flip, Resize and randomize lights etc
+Images processing Cut out, Flip, Resize and randomize lights etc
 
 
 ## Use ./cut_out tool
