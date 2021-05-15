@@ -28,6 +28,8 @@ static void show_usage(std::string name)
               << "\t-h,--help\t\tShow this help message\n"
               << "\t-W,--width [float] Argument specify width gain of output imaged, range 0.05 to 1.0. In example -W 0.859\n"
               << "\t-H,--height [float] Argument specify height gain of output imaged, range 0.05 to 1.0. In example -H 0.859\n"
+              << "\t-OH [float] Argument specify offset height of output imaged, range 0.0 to 1.0. In example -OH 0.9 , 0.5 = center\n"
+              << "\t-OW [float] Argument specify offset width of output imaged, range 0. to 1.0. In example -OW 0.1 , 0.5 = center\n"
 
               << std::endl;
                 printf("\n");            
@@ -58,6 +60,8 @@ int main(int argc, char* argv[])
     }
     float width_g = 1.0f;
     float height_g = 1.0f;
+    float offset_w = 0.5f;
+    float offset_h = 0.5f;
 
     std::vector <std::string> sources;
     std::string destination;
@@ -66,7 +70,7 @@ int main(int argc, char* argv[])
         if ((arg == "-h") || (arg == "--help")) {
             show_usage(argv[0]);
             return 0;
-        } else if ((arg == "--width") || (arg == "-W") || (arg == "--height") || (arg == "-H")) {
+        } else if ((arg == "--width") || (arg == "-W") || (arg == "--height") || (arg == "-H") || (arg == "-OH") || (arg == "-OW")) {
             if (i + 1 < argc) { // Make sure we aren't at the end of argv!
                 argv[i++]; // Increment 'i' so we don't get the argument as the next argv[i].
                 if(isFloat(argv[i])==true){
@@ -77,6 +81,13 @@ int main(int argc, char* argv[])
                   if((arg == "--height") || (arg == "-H")){
                     height_g = stof(argv[i]);
                   }
+                  if((arg == "-OH") ){
+                    offset_h = stof(argv[i]);
+                  }
+                  if((arg == "-OW")){
+                    offset_w = stof(argv[i]);
+                  }
+
                 }
                 else{
                   cout << "\033[1;31mError! \033[0m";
@@ -110,9 +121,16 @@ int main(int argc, char* argv[])
     if(height_g > 1.0f){
       height_g = 1.0f;
     }
+    if(offset_w > 1.0f){ offset_w = 1.0f; }
+    if(offset_h > 1.0f){ offset_h = 1.0f; }
+    if(offset_w < 0.0f){ width_g = 0.0f; }
+    if(offset_h < 0.0f){ offset_h = 0.0f; }
+
 
     printf("witdh gain = %f\n", width_g);    
     printf("height gain = %f\n", height_g);
+    printf("offset_w = %f\n", offset_w);    
+    printf("offset_h = %f\n", offset_h);
     
   std::string str1 = "./data/src/";
   std::string str2 = "/";
@@ -200,6 +218,18 @@ int main(int argc, char* argv[])
 
     x_start = (inp_img_x / 2) - (width_int / 2);
     y_start = (inp_img_y / 2) - (height_int / 2);
+
+    x_start += (int)((float)x_start * ((offset_w-0.5f)*2.0f));
+    y_start += (int)((float)y_start * ((offset_h-0.5f)*2.0f));
+    if(x_start<0){
+      cout << "\033[1;31mError! x_start<0 detect \033[0m" << endl;
+      x_start=0;
+    }
+    if(y_start<0){
+      cout << "\033[1;31mError! y_start<0 detect \033[0m" << endl;
+      y_start=0;
+    }
+
     printf("x_start = %d\n", x_start);
     printf("y_start = %d\n", y_start);
     printf("width_int = %d\n", width_int);
