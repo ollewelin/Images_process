@@ -2,8 +2,10 @@
 Images processing Flip, Resize and randomize lights etc
 
 
-## ./cut_out
+## Use ./cut_out tool
+
+  $ ./cut_out -H 0.95 -W 0.7 -OH 1.0 -OW 0.6
 
 ## command example
 
-![]('Cut out example.png')
+![](Cut_out_example.png)
