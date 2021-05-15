@@ -46,8 +46,6 @@ int CheckNoZero(int a)
   if(a<1)
   {
     a=1;
-  }
-  else{
     cout << "\033[1;31mError! Zero integer detect \033[0m" << endl;
   }
   return a;
@@ -170,7 +168,7 @@ int main(int argc, char* argv[])
     cout << input_file << endl;
     cv::Mat img = cv::imread(input_file);
     cv::imshow("input img", img);
-     cv::waitKey(1);
+     cv::waitKey(100);
   }
 
   for(int i=0;i<nr_of_files;i++)
@@ -181,31 +179,41 @@ int main(int argc, char* argv[])
     printf("input_file = ");
     cout << input_file << endl;
     cv::Mat img = cv::imread(input_file);
-    cv::Mat frame;
-    frame.convertTo(img, CV_32FC3, 1.0f / 255.0f);
-    cv::imshow("input img", frame);
+   // cv::imshow("input img", img);
+   // cv::waitKey(2000);
 
+    cv::Mat frame;
+    img.convertTo(frame, CV_32FC3, 1.0f / 255.0f);
+    cv::imshow("frame", frame);
+    cv::waitKey(1000);
     int inp_img_x = img.cols;
     int inp_img_y = img.rows;
     int width_int = (int)((float)inp_img_x * width_g);
     int height_int = (int)((float)inp_img_y * height_g);
     width_int = CheckNoZero(width_int);
     height_int = CheckNoZero(height_int);
-    width_int = CheckNoZero(inp_img_x);
-    height_int = CheckNoZero(inp_img_y);
+    inp_img_x = CheckNoZero(inp_img_x);
+    inp_img_y = CheckNoZero(inp_img_y);
  
     int x_start = 0;
     int y_start = 0;
 
     x_start = (inp_img_x / 2) - (width_int / 2);
     y_start = (inp_img_y / 2) - (height_int / 2);
+    printf("x_start = %d\n", x_start);
+    printf("y_start = %d\n", y_start);
+    printf("width_int = %d\n", width_int);
+    printf("height_int = %d\n", height_int);
+    printf("inp_img_x = %d\n", inp_img_x);
+    printf("inp_img_y = %d\n", inp_img_y);
+
 
     //Mat rect_part(image, Rect(rand_x_start, rand_y_start, Width, Height));//Pick a small part of image
     cv::Mat shriked_img(frame, cv::Rect(x_start, y_start, width_int, height_int)); //
     shriked_img.convertTo(shriked_img, CV_8UC3, 255);
 
-    output_file = std::to_string(i);
-    output_file = str1 + output_file + str3;
+    output_file = std::to_string(i+1);
+    output_file = str5 + output_file + str3;
     printf("output_file = ");
     cout << output_file << endl;
     cv::imshow("output shriked_img images", shriked_img);
