@@ -203,7 +203,7 @@ int main(int argc, char* argv[])
     cv::Mat frame;
     img.convertTo(frame, CV_32FC3, 1.0f / 255.0f);
     cv::imshow("frame", frame);
-    cv::waitKey(1000);
+    cv::waitKey(100);
     int inp_img_x = img.cols;
     int inp_img_y = img.rows;
     int width_int = (int)((float)inp_img_x * width_g);
@@ -247,7 +247,7 @@ int main(int argc, char* argv[])
     printf("output_file = ");
     cout << output_file << endl;
     cv::imshow("output shriked_img images", shriked_img);
-    cv::waitKey(200);
+    cv::waitKey(100);
     cv::imwrite(output_file, shriked_img);
 
   }
