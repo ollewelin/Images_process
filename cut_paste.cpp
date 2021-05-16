@@ -28,7 +28,7 @@ Mat transf(Mat src, Mat background)
 
     float scale_r;
     float scale_r_n;
-    float scale_gain=0.45f;///Change here
+    float scale_gain=0.12f;///Change here
     float trans_x_r;
     float trans_y_r;
     float transelation_x = 0.0f;
@@ -255,8 +255,78 @@ cv::Mat makeSquareImg(cv::Mat frame, int outputImageSize, std::string file_locat
   return varLight;
 }
 
-auto main() -> int
+
+
+static void show_usage(std::string name)
 {
+    std::cerr << "Usage: " << name << " <option(s)> SOURCES"
+              << "Options:\n"
+              << "\t-h,--help\t\tShow this help message\n"
+              << "\t-N [int] Argument specify number of output imaged. In example -N 10\n"
+
+              << std::endl;
+                printf("\n");            
+
+}
+
+bool isFloat( string myString ) {
+    std::istringstream iss(myString);
+    float f;
+    iss >> noskipws >> f; // noskipws considers leading whitespace invalid
+    // Check the entire string was consumed and if either failbit or badbit is set
+    return iss.eof() && !iss.fail(); 
+}
+int CheckNoZero(int a)
+{
+  if(a<1)
+  {
+    a=1;
+    cout << "\033[1;31mError! Zero integer detect \033[0m" << endl;
+  }
+  return a;
+}
+
+
+
+
+int main(int argc, char* argv[])
+{
+    if (argc < 3) {
+        show_usage(argv[0]);
+        return 1;
+    }
+    int nr_randomize_images = 1;
+ 
+    std::vector <std::string> sources;
+    std::string destination;
+    for (int i = 1; i < argc; ++i) {
+        std::string arg = argv[i];
+        if ((arg == "-h") || (arg == "--help")) {
+            show_usage(argv[0]);
+            return 0;
+        } else if ((arg == "-N")) {
+            if (i + 1 < argc) { // Make sure we aren't at the end of argv!
+                argv[i++]; // Increment 'i' so we don't get the argument as the next argv[i].
+                
+                  //printf("It is a Float arg \n");
+                  if((arg == "-N")){
+                    nr_randomize_images = stoi(argv[i]);
+                  }
+
+                
+            } else { // Uh-oh, there was no argument to the destination option.
+                  cout << "\033[1;31mError! \033[0m";
+                  printf("user input argument failure !\n");
+                  std::cerr << "--destination option requires one argument." << std::endl;
+                  printf("use -h or --help argumet\n");
+                return 1;
+            }  
+        } else {
+            sources.push_back(argv[i]);
+        }
+    }
+
+
   printf("Use this example command to rename jpg images in a folder\n");
   printf("$ counter=0; for file in *; do [[ -f $file ]] && mv -i %c$file%c $((counter+1)).jpg && ((counter++)); done\n", 34, 34);
       
@@ -328,7 +398,7 @@ auto main() -> int
     std::string inp_img_str = std::to_string(0);
     std::string background_str = std::to_string(0);
     std::string output_file = std::to_string(0);
-  const int nr_randomize_images = 2;
+  
   printf("Randomize input images by factor =%d\n", nr_randomize_images);
 
 
