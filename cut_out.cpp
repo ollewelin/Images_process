@@ -121,8 +121,8 @@ int main(int argc, char* argv[])
     if(height_g > 1.0f){
       height_g = 1.0f;
     }
-    if(offset_w > 1.0f){ offset_w = 1.0f; }
-    if(offset_h > 1.0f){ offset_h = 1.0f; }
+    if(offset_w > 0.99f){ offset_w = 0.99f; }
+    if(offset_h > 0.99f){ offset_h = 0.99f; }
     if(offset_w < 0.0f){ width_g = 0.0f; }
     if(offset_h < 0.0f){ offset_h = 0.0f; }
 
