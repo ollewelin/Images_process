@@ -221,6 +221,15 @@ int main(int argc, char* argv[])
 
     x_start += (int)((float)x_start * ((offset_w-0.5f)*2.0f));
     y_start += (int)((float)y_start * ((offset_h-0.5f)*2.0f));
+    if((x_start+width_int)>(frame.cols-1)){
+      cout << "\033[1;31mError! x_start to high detect \033[0m" << endl;
+      x_start=frame.cols-width_int;
+    }
+    if((y_start+height_int)>(frame.rows-1)){
+      cout << "\033[1;31mError! y_start to high detect \033[0m" << endl;
+      y_start=frame.rows-height_int;
+    }
+
     if(x_start<0){
       cout << "\033[1;31mError! x_start<0 detect \033[0m" << endl;
       x_start=0;
